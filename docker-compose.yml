@@ -18,14 +18,14 @@ services:
       - mysql
   mysql:
     image: mysql
+    ports:
+      - 3307:3306
     env_file:
       - .env
     volumes:
       - type: volume
-        source: php-contact-volume
+        source: php-contact-vol
         target: /var/lib/mysql
-    ports:
-      - 3307:3306
     
 volumes:
-    php-contact-volume: 
+    php-contact-vol: 

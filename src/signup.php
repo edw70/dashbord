@@ -11,7 +11,7 @@
 
 <div class="container mt-5">
     <h2>Formulaire d'Inscription</h2>
-    <form action="#" method="POST">
+    <form action="index_trait.php" method="POST">
         <!-- Champ : Prénom -->
         <div class="form-group">
             <label for="prenom">Prénom</label>
@@ -41,6 +41,9 @@
             <label for="password_repeat">Répéter le mot de passe</label>
             <input type="password" class="form-control" id="password_repeat" name="password_repeat" required>
         </div>
+
+        <!-- jeton caché dans formulaire -->
+        <input type="hidden" name="token" id="token" value="<?php echo $token; ?>">
 
         <!-- Bouton d'envoi -->
         <button type="submit" class="btn btn-primary">S'inscrire</button>
