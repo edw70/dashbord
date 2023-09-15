@@ -12,13 +12,12 @@ $_SESSION['token_time'] = time(); //stockage time stamp du token
     <title>Formulaire de Connexion</title>
     <!-- Inclure les styles Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="authentification.js" defer></script> 
+    
     
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="index.php">Mon Site</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -26,14 +25,13 @@ $_SESSION['token_time'] = time(); //stockage time stamp du token
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">            
             <li class="nav-item">
-                <a class="nav-link" href="signup.html">S'inscrire</a>
+                <a class="nav-link" href="index.html">Retour</a>
             </li>
         </ul>
     </div>
 </nav>
-
 <div class="container mt-5">
-    <h2>Formulaire de Connexion</h2>
+    <h2>Formulaire de Récupération</h2>
     <?php
 
         // Si le formulaire a été soumis, vérifiez s'il y a des erreurs et affichez-les le cas échéant
@@ -50,56 +48,22 @@ $_SESSION['token_time'] = time(); //stockage time stamp du token
             
         }
     ?>
-    <?php
-
-// Si le formulaire a été soumis, vérifiez s'il y a des erreurs et affichez-les le cas échéant
-if (!empty($_SESSION["validationMessages"])) {
-
-    echo '<p class="text-primary">';
-    foreach ($_SESSION["validationMessages"] as $validationMessage) {
-        echo $validationMessage . "<br>";
-    }
-        echo '</p>';
-
-    // Une fois les messages affichés, supprimez-les de la session
-    unset($_SESSION["validationMessages"]);
     
-}
-?>
-    <form action="traitement_connex.php" method="POST" id="identification">
+    <form action="traitement_demande_email.php" method="POST" id="demande_mail">
         <!-- Champ : Adresse e-mail -->
         <div class="form-group">
-    <label for="email">Adresse e-mail</label>
-    <input type="email" class="form-control" id="email" name="email" required pattern="^[a-zA-Z0-9._%\\+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$" title="Exemple d'adresse email : email@example.com">
-</div>
-
-    <!-- Champ : Mot de passe -->
-    <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input type="password" class="form-control" id="password" name="password" required >
-    </div>
-
-
-        <!-- Option : Se souvenir de moi -->
-        <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="rememberMe" name="rememberMe">
-            <label class="form-check-label" for="rememberMe">Se souvenir de moi</label>
-        </div>
-
-        <input type="hidden" id="authToken" name="authToken">
-
-        <!-- Lien : Mot de passe oublié -->
-        <div class="form-group">
-            <a href="demande_email.php">Mot de passe oublié ?</a>
+            <label for="email">Votre adresse e-mail</label>
+            <input type="email" class="form-control" id="resetemail" name="user_email" required pattern="^[a-zA-Z0-9._%\\+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$" title="Exemple d'adresse email : email@example.com">
         </div>
 
         <!-- jeton caché dans formulaire -->
         <input type="hidden" name="token" id="token" value="<?php echo $token; ?>">
-
+        
         <!-- Bouton d'envoi -->
-        <button type="submit" class="btn btn-primary">Se connecter</button>
+        <button type="submit" class="btn btn-primary" name="btn_user_reset">Réinitialiser le mot de passe</button>
     </form>
-</div>
+</div>               
+        
 
 <!-- Inclure les scripts Bootstrap -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

@@ -16,6 +16,11 @@ services:
       - .env
     depends_on:
       - mysql
+  mailhog:
+    image: mailhog/mailhog:v1.0.0
+    ports:
+      - "1025:1025"
+      - "8025:8025"
   mysql:
     image: mysql
     ports:
