@@ -59,9 +59,8 @@ if(isset($_POST['btn_user_reset'])) {
 
         $header = "MIME-Version: 1.0" . "\r\n";
         $header .= "Content-type: text/html; charset=utf-8" . "\r\n";
-        $headers[] = 'To: '.$to.' <'.$to.'>';
-        $headers[] = 'Mon site web <info@monsiteweb.tld>'; //voir pour modifier
-
+        $header .= 'To: '.$to.' <'.$to.'>' . "\r\n";
+        $header .= 'From: info@mescontacts.com';
         //on envoie le courriel
         mail($to, $subject, $message, $header);
         $validationMessages [] = "Un courriel a été acheminé.
