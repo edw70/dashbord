@@ -1,10 +1,14 @@
 <?php
 session_start();
-
+//creation du token csrf
+$token = uniqid(rand(), true); //creation token unique 
+$_SESSION['token'] = $token; //stockage
+$_SESSION['token_time'] = time(); //stockage time stamp du token
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
+    <!-- gestion formulaire d'inscription-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'Inscription</title>
@@ -16,7 +20,7 @@ session_start();
 <div class="container mt-5">
     <h2>Formulaire d'Inscription</h2>
     <?php
-  
+        //gestion des messages erreur
         // Si le formulaire a été soumis, vérifiez s'il y a des erreurs et affichez-les le cas échéant
         if (!empty($_SESSION["error_messages"])) {
             echo '<p style="color: red;">';
@@ -30,7 +34,7 @@ session_start();
         }
    
     ?>
-    <form action="index_trait.php" method="POST">
+    <form action="index_trait.html" method="POST">
         <!-- Champ : Prénom -->
         <div class="form-group">
             <label for="prenom">Prénom</label>

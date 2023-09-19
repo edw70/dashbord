@@ -11,7 +11,7 @@ session_start();
     <!-- Inclure les styles Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="authentification.js" defer></script> 
+   <!-- <script src="authentification.js" defer></script>  -->
     
 </head>
 <body>
@@ -34,20 +34,20 @@ session_start();
     <h2>Confirmation d'envoie d'email</h2>
     <?php
 
-        // Si le formulaire a été soumis, vérifiez s'il y a des erreurs et affichez-les le cas échéant
-        if (!empty($_SESSION["error_messages"])) {
+// Si le formulaire a été soumis, vérifiez s'il y a des erreurs et affichez-les le cas échéant
+if (!empty($_SESSION["validationMessages"])) {
 
-            echo '<div class="alert alert-primary" role="alert">';
-            foreach ($_SESSION["error_messages"] as $errorMessage) {
-                echo $errorMessage . "<br>";
-            }
-                echo '</div>';
+    echo '<div class="alert alert-primary" role="alert"">';
+    foreach ($_SESSION["validationMessages"] as $validationMessage) {
+        echo $validationMessage . "<br>";
+    }
+        echo '</div>';
 
-            // Une fois les messages affichés, supprimez-les de la session
-            unset($_SESSION["error_messages"]);
-            
-        }
-    ?>
+    // Une fois les messages affichés, supprimez-les de la session
+    unset($_SESSION["validationMessages"]);
+    
+}
+?>
     
 
 

@@ -44,14 +44,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Renouvellement du jeton si "Se souvenir de moi" est coché
         if ($rememberMe) {
- //           $newAuthToken = bin2hex(random_bytes(32));
-            // Générez une clé de chiffrement aléatoire (partie changer pour crypter)
-            $encryptionKey = openssl_random_pseudo_bytes(32);
+ //           
+            // Générez une clé de chiffrement aléatoire 
+            $encryptionKey = '1234';
+            $encryptionKeyIV = '1234567891234567';
 
             // Chiffrement du jeton avec OpenSSL
-            $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-            $newAuthToken = openssl_encrypt($user['iduser'], 'aes-256-cbc', $encryptionKey, 0, $iv);
-
+            
+            $newAuthToken = openssl_encrypt($user['iduser'], 'aes-256-cbc', $encryptionKey, 0, $encryptionKeyIV );
             
             // Stockez le nouveau jeton dans la base de données pour l'utilisateur
             updateAuthToken($conn, $user['iduser'], $newAuthToken);
@@ -65,12 +65,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
 
             // Stockez également le jeton dans le local storage
-            echo '<script>localStorage.setItem("authToken", "' . $newAuthToken . '"); window.location.href = "http://php-dev-1.online/dashbord.php";</script>';
+            echo '<script>localStorage.setItem("authToken", "' . $newAuthToken . '"); window.location.href = "http://php-dev-1.online/dashbord.html";</script>';
             
 
 
         }else{// Connexion réussie, vous pouvez rediriger l'utilisateur vers la page du tableau de bord
-            header("Location: dashbord.php");
+            header("Location: dashbord.html");
         }
 
    } else {

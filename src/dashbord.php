@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+//recuperation de id utilisateur
 if (!isset($_SESSION['user_id'])){
 
     header("Location: index.php");
@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])){
 $user_id = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,7 +78,7 @@ $user_id = $_SESSION['user_id'];
             <?php
 require("connexion_db.php");
 $conn = connectDatabase();
-
+//rajoute en dynamique les contact sur le dashbord utilisateur
 $sql_select_contacts = "SELECT c.contact_name, c.contact_surname, c.contact_email 
                         FROM contact c 
                         JOIN user_contact uc ON c.idcontact = uc.contact_idcontact  

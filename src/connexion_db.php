@@ -10,7 +10,7 @@ function connectDatabase(){
         
         // Configurer la connexion à la base de données
         $host = 'mysql'; // Nom de l'hôte MySQL
-        // Chaîne de connexion PDO
+        // Chaîne de connexion PDOmb
         $conn = new PDO("mysql:host=$host;dbname=$mysqlDatabase;charset=utf8", $mysqlUser, $mysqlPassword);
         
         // Configuration de PDO pour rapporter les erreurs SQL
@@ -18,7 +18,7 @@ function connectDatabase(){
         return $conn;
     } catch (PDOException $e){
 
-       // die("Erreur de connexion à la base de données :" . $e->getMessage());
+       
         echo"Erreur de connexion à la base de données :" . $e->getMessage();
     }
 }

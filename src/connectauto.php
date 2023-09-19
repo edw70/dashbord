@@ -1,5 +1,5 @@
 <?php
-// Assurez-vous que la méthode de la requête est POST
+//  méthode est POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Récupérer les données JSON envoyées depuis JavaScript
     $data = json_decode(file_get_contents("php://input"));
@@ -7,14 +7,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Vérifier si le token d'authentification est valide 
     $authToken = $data->authToken;
     // Déchiffrez le token pour vérification (partie ajouter)
-    $encryptionKey = openssl_random_pseudo_bytes(32);
-    $ivLength = openssl_cipher_iv_length('aes-256-cbc');
-    $authToken = base64_decode($authToken);
+   
 
-    $iv = substr($authToken, 0, $ivLength);
-    $encryptedUserId = substr($authToken, $ivLength);
-    $userId = openssl_decrypt($encryptedUserId, 'aes-256-cbc', $encryptionKey, 0, $iv);
-
+    
     $isValid = verifyAuthToken($authToken);
 
     // Préparer la réponse au format JSON
@@ -37,6 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 // Fonction de vérification du token d'authentification 
 function verifyAuthToken($token) {
+    $encryptionKey = '1234';
+    $encryptionKeyIV = '1234567891234567';
+    $userId = openssl_decrypt($token, 'aes-256-cbc', $encryptionKey, 0, $encryptionKeyIV );
     //connexion à la base de donnée
     require("connexion_db.php");
     $conn = connectDatabase();
@@ -48,10 +46,11 @@ function verifyAuthToken($token) {
     $stmt->bindParam(':token', $token, PDO::PARAM_STR);
 
     $stmt->execute();
+    
     // Récupérez le résultat de la requête
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($result) {
+    if ( openssl_decrypt($result['auth_token'], 'aes-256-cbc', $encryptionKey, 0, $encryptionKeyIV ) === $userId ) {
         // Le token est valide
         $conn = null; // Fermez la connexion à la base de données
         return true;

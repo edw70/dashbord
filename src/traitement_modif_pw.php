@@ -23,7 +23,7 @@ require("connexion_db.php");
 $conn = connectDatabase();
 $errorMessages = [];
 $message = '';
-
+$validationMessages = [];
 //si aucun token n'est spécifié en paramètre de l'url
 
 if (empty($_POST['tocken'])){
@@ -66,23 +66,23 @@ if (isset($_POST['btn_user_changePw'])) {
             $query->bindValue(2, $_POST['tocken']);
             $query->execute();
            
-            $errorMessages[] = 'Le mot de passe a été changé !';
-            $_SESSION["error_messages"] = $errorMessages;
-            header("Location: index.php");
+            $validationMessages [] = 'Le mot de passe a été changé !';
+            $_SESSION["validationMessages"] = $validationMessages;
+            header("Location: index.html");
             exit();
             //si les deux mot de passe ne sont pas identiques
         } else {
             
             $errorMessages[] = 'Les deux mots de passes ne sont pas identiques.';
             $_SESSION["error_messages"] = $errorMessages;
-            header("Location: modification_pw.php");
+            header("Location: modification_pw.html?token=" . $_POST['tocken']);
             exit();
         }
     } else {
         
         $errorMessages[] = 'Veuillez remplir tous les champs du formulaire.';
         $_SESSION["error_messages"] = $errorMessages;
-        header("Location: modification_pw.php");
+        header("Location: modification_pw.html?token=" . $_POST['tocken']);
         exit();
     }
 }

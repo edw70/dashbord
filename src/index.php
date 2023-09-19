@@ -1,11 +1,12 @@
 <?php
 session_start();
+//creation du token csrf
 $token = uniqid(rand(), true); //creation token unique 
 $_SESSION['token'] = $token; //stockage
 $_SESSION['token_time'] = time(); //stockage time stamp du token
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,12 +15,12 @@ $_SESSION['token_time'] = time(); //stockage time stamp du token
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
     <script src="authentification.js" defer></script> 
-    
+    <!-- gestion du formulaire de connexion -->
 </head>
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-    <a class="navbar-brand" href="index.php">Mon Site</a>
+    <a class="navbar-brand" href="index.php">Mes Contacts</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -35,7 +36,7 @@ $_SESSION['token_time'] = time(); //stockage time stamp du token
 <div class="container mt-5">
     <h2>Formulaire de Connexion</h2>
     <?php
-
+        //gestion des messages erreurs et de reussite
         // Si le formulaire a été soumis, vérifiez s'il y a des erreurs et affichez-les le cas échéant
         if (!empty($_SESSION["error_messages"])) {
 
@@ -55,29 +56,30 @@ $_SESSION['token_time'] = time(); //stockage time stamp du token
 // Si le formulaire a été soumis, vérifiez s'il y a des erreurs et affichez-les le cas échéant
 if (!empty($_SESSION["validationMessages"])) {
 
-    echo '<p class="text-primary">';
+    echo '<div class="alert alert-primary" role="alert"">';
     foreach ($_SESSION["validationMessages"] as $validationMessage) {
         echo $validationMessage . "<br>";
     }
-        echo '</p>';
+        echo '</div>';
 
     // Une fois les messages affichés, supprimez-les de la session
     unset($_SESSION["validationMessages"]);
     
 }
 ?>
-    <form action="traitement_connex.php" method="POST" id="identification">
+    <!--formulaire-->
+    <form action="traitement_connex.html" method="POST" id="identification">
         <!-- Champ : Adresse e-mail -->
         <div class="form-group">
-    <label for="email">Adresse e-mail</label>
-    <input type="email" class="form-control" id="email" name="email" required pattern="^[a-zA-Z0-9._%\\+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$" title="Exemple d'adresse email : email@example.com">
-</div>
+            <label for="email">Adresse e-mail</label>
+            <input type="email" class="form-control" id="email" name="email" required pattern="^[a-zA-Z0-9._%\\+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$" title="Exemple d'adresse email : email@example.com">
+        </div>
 
     <!-- Champ : Mot de passe -->
-    <div class="form-group">
-        <label for="password">Mot de passe</label>
-        <input type="password" class="form-control" id="password" name="password" required >
-    </div>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" class="form-control" id="password" name="password" required >
+        </div>
 
 
         <!-- Option : Se souvenir de moi -->
@@ -90,7 +92,7 @@ if (!empty($_SESSION["validationMessages"])) {
 
         <!-- Lien : Mot de passe oublié -->
         <div class="form-group">
-            <a href="demande_email.php">Mot de passe oublié ?</a>
+            <a href="demande_email.html">Mot de passe oublié ?</a>
         </div>
 
         <!-- jeton caché dans formulaire -->

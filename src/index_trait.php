@@ -1,7 +1,7 @@
 <?php
 //phpinfo();
 session_start(); //demarrage session
-
+//traitement du token csrf
 // verifier la presence du jeton dans la session et ds le formulaire
 if(isset($_SESSION['token']) && isset($_SESSION['token_time']) && isset($_POST['token'])){
     //si le jeton session == jeton formulaire
@@ -54,7 +54,7 @@ $conn = connectDatabase();
             $errorMessages[] = "Cette adresse e-mail est déjà enregistrée.";
             $_SESSION["error_messages"] = $errorMessages;
 
-            header("Location: signup.php");
+            header("Location: signup.html");
             exit();
         }
 
@@ -71,7 +71,7 @@ $conn = connectDatabase();
             $_SESSION["nom"] = $_POST['nom'];
             $_SESSION["email"] = $_POST['email'];
             // Redirigez l'utilisateur vers signup.php
-            header("Location: signup.php");
+            header("Location: signup.html");
             exit();
         } else {
             // Hash du mot de passe

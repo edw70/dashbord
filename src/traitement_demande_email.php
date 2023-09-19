@@ -24,6 +24,7 @@ $conn = connectDatabase();
 
 // Initialisation du tableau des messages d'erreur
 $errorMessages = [];
+$validationMessages = [];
 $message='';
 //si le formulaire a été soumis
 if(isset($_POST['btn_user_reset'])) {
@@ -49,36 +50,34 @@ if(isset($_POST['btn_user_reset'])) {
         $stmt->execute();
 
         //on prepare l'envoie du courriel
-        $link = 'http://php-dev-1.online/modification_pw.php?token='.$token;
+        $link = 'http://php-dev-1.online/modification_pw.html?token='.$token;
 //        $link = 'chemin?token='.$token;
         $to = $_POST['user_email'];
         $subject = 'Réinitialisation de votre mot de passe';
         $message = '<h1>Réinitialisation de votre mot de passe</h1><p>Pour réinitialiser votre mot de passe, veuillez suivre le lien : <a href="'.$link.'">'.$link.'</a></p>';
         //on défini les entêtes requis
-        /* $header = [];
-        $headers[] = "Content-type: text/html; charset=utf-8\r\n\r\n"; */
+
         $header = "MIME-Version: 1.0" . "\r\n";
         $header .= "Content-type: text/html; charset=utf-8" . "\r\n";
-
         $headers[] = 'To: '.$to.' <'.$to.'>';
         $headers[] = 'Mon site web <info@monsiteweb.tld>'; //voir pour modifier
 
         //on envoie le courriel
         mail($to, $subject, $message, $header);
-        $errorMessages[] = "Un courriel a été acheminé.
+        $validationMessages [] = "Un courriel a été acheminé.
         Veuillez regarder votre boite de réception mail et suivre les instructions.";
-        $_SESSION["error_messages"] = $errorMessages;
-        header("Location: confirmationMail.php");
+        $_SESSION["validationMessages"] = $validationMessages;
+        header("Location: confirmationMail.html");
         exit();
     }else{ //si email pas associé à un compte
         $errorMessages[] = "Adresse email non enregistré.";
         $_SESSION["error_messages"] = $errorMessages;
-        header("Location: demande_email.php");
+        header("Location: demande_email.html");
         exit();
     }
     }else { //si le formulaire n'est pas correctement remplit
         $errorMessages[] = "Veuillez spécifier une adresse courriel.";
-        header("Location: demande_email.php");
+        header("Location: demande_email.html");
         exit();
     }
     

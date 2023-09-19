@@ -2,14 +2,14 @@
     // Récupérer le token du local storage
     const authToken = localStorage.getItem("authToken");
     
-    // Vérifier si authToken est null ou vide
+    // Vérifier si authToken est vide ou renseigné
     if(authToken){
     
         // Créez un objet avec le token d'authentification à envoyer au serveur
         const data = {
             authToken: authToken,
         };
-
+        
         // Effectuez une requête AJAX POST vers le serveur PHP
         fetch("connectauto.php", {
             method: "POST",
@@ -20,11 +20,12 @@
         })
         .then(response => response.json())
         .then(data => {
-
+            
+            
                 if (data.authenticated) {
                     
                     // Authentification réussie, redirigez l'utilisateur vers le tableau de bord
-                    window.location.href = "http://php-dev-1.online/dashbord.php";
+                    window.location.href = "http://php-dev-1.online/dashbord.html";
                 }
 
             })
